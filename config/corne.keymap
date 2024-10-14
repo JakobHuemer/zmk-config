@@ -48,13 +48,13 @@ BASE_LAYOUT_EXPANDED(KEYS)
 #define QWERTY_KEYS \
     Q,       W,       E,       R,       T,           Y,       U,       I,       O,       P,    \
     A,       S,       D,       F,       G,           H,       J,       K,       L,       SEMI, \
-    Z,       X,       C,       V,       B,           N,       M,       COMMA,   DOT,     FSLH \
+    Z,       X,       C,       V,       B,           N,       M,       COMMA,   DOT,     FSLH 
 
 #define DVORAK_KEYS \
     SQT,     COMMA,   DOT,     P,       Y,           F,       G,       C,       R,       L, \
     A,       O,       E,       U,       I,           D,       H,       T,       N,       S, \
-    SEMI,    Q,       J,       K,       X,           B,       M,       W,       V,       Z \
-f
+    SEMI,    Q,       J,       K,       X,           B,       M,       W,       V,       Z 
+
 
 #define QWERTY_LAYOUT BASE_LAYOUT( QWERTY_KEYS )
 
