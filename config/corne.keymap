@@ -1,56 +1,89 @@
 /*
- * Copyright (c) 2020 The ZMK Contributors
- *
- * SPDX-License-Identifier: MIT
- */
+* Copyright (c) 2020 The ZMK Contributors
+*
+* SPDX-License-Identifier: MIT
+*/
 
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/bt.h>
 
+
+#define D_QWERTY  0
+#define D_DVORAK  1
+#define RAISE     2
+#define RAISE_EXT 3
+
+
+
+#define BASE_LAYOUT( \
+    K01, K02, K03, K04, K05, K06, K07, K08, K09, K10, \
+    K11, K12, K13, K14, K15, K16, K17, K18, K19, K20, \
+    K21, K22, K23, K24, K25, K26, K27, K28, K29, K30  \
+) \
+< \
+    &none &kp K01       &kp K02         &kp K03         &kp K04         &kp K05             &kp K06     &kp K07         &kp K08         &kp K09         &kp K10         &none \
+    &none &hm LSHFT K11 &hm LCTRL K12   &hm LALT K13    &hm LGUI K14    &kp K15             &kp K16     &hm RGUI K17    &hm RALT K18    &hm RCTRL K19   &hm RSHFT K20   &none \
+    &none &kp K21       &kp K22         &kp K23         &kp K24         &kp K25             &kp K26     &kp K27         &kp K28         &kp K29         &kp K30         &none \
+                                        &kp TAB         &mo RAISE       &kp SPACE           &kp RET     &kp BSPC        &kp DEL \
+>
+
+#define QWERTY_LAYOUT BASE_LAYOUT( \
+    Q,       W,       E,       R,       T,           Y,       U,       I,       O,       P,    \
+    A,       S,       D,       F,       G,           H,       J,       K,       L,       SEMI, \
+    Z,       X,       C,       V,       B,           N,       M,       COMMA,   DOT,     FSLH \
+)
+
+#define DVORAK_LAYOUT BASE_LAYOUT( \
+    SQT,     COMMA,   DOT,     P,       Y,           F,       G,       C,       R,       L, \
+    A,       O,       E,       U,       I,           D,       H,       T,       N,       S, \
+    SEMI,    Q,       J,       K,       X,           B,       M,       W,       V,       Z \
+)
+
+
 / {
-        keymap {
-                compatible = "zmk,keymap";
 
-                default_layer {
-// -----------------------------------------------------------------------------------------
-// |  TAB |  Q  |  W  |  E  |  R  |  T  |   |  Y  |  U   |  I  |  O  |  P  | BSPC |
-// | CTRL |  A  |  S  |  D  |  F  |  G  |   |  H  |  J   |  K  |  L  |  ;  |  '   |
-// | SHFT |  Z  |  X  |  C  |  V  |  B  |   |  N  |  M   |  ,  |  .  |  /  | ESC  |
-//                    | GUI | LWR | SPC |   | ENT | RSE  | ALT |
-                        bindings = <
-   &kp TAB   &kp Q &kp W &kp E &kp R &kp T   &kp Y &kp U  &kp I     &kp O   &kp P    &kp BSPC
-   &kp LCTRL &kp A &kp S &kp D &kp F &kp G   &kp H &kp J  &kp K     &kp L   &kp SEMI &kp SQT
-   &kp LSHFT &kp Z &kp X &kp C &kp V &kp B   &kp N &kp M  &kp COMMA &kp DOT &kp FSLH &kp ESC
-                  &kp LGUI &mo 1 &kp SPACE   &kp RET &mo 2 &kp RALT
-                        >;
-                };
-                lower_layer {
-// -----------------------------------------------------------------------------------------
-// |  TAB |  1  |  2  |  3  |  4  |  5  |   |  6  |  7  |  8  |  9  |  0  | BSPC |
-// | BTCLR| BT1 | BT2 | BT3 | BT4 | BT5 |   | LFT | DWN |  UP | RGT |     |      |
-// | SHFT |     |     |     |     |     |   |     |     |     |     |     |      |
-//                    | GUI |     | SPC |   | ENT |     | ALT |
-                        bindings = <
-   &kp TAB    &kp N1       &kp N2       &kp N3       &kp N4       &kp N5         &kp N6   &kp N7   &kp N8 &kp N9    &kp N0 &kp BSPC
-   &bt BT_CLR &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4   &kp LEFT &kp DOWN &kp UP &kp RIGHT &trans &trans
-   &kp LSHFT  &trans       &trans       &trans       &trans       &trans         &trans   &trans   &trans &trans    &trans &trans
-                                    &kp LGUI     &trans       &kp SPACE      &kp RET  &trans   &kp RALT
-                        >;
-                };
-
-                raise_layer {
-// -----------------------------------------------------------------------------------------
-// |  TAB |  !  |  @  |  #  |  $  |  %  |   |  ^  |  &  |  *  |  (  |  )  | BSPC |
-// | CTRL |     |     |     |     |     |   |  -  |  =  |  [  |  ]  |  \  |  `   |
-// | SHFT |     |     |     |     |     |   |  _  |  +  |  {  |  }  | "|" |  ~   |
-//                    | GUI |     | SPC |   | ENT |     | ALT |
-                        bindings = <
-   &kp  TAB  &kp EXCL &kp AT &kp HASH &kp DLLR &kp PRCNT   &kp CARET &kp AMPS  &kp ASTRK &kp LPAR &kp RPAR &kp BSPC
-   &kp LCTRL &trans   &trans &trans   &trans   &trans      &kp MINUS &kp EQUAL &kp LBKT  &kp RBKT &kp BSLH &kp GRAVE
-   &kp LSHFT &trans   &trans &trans   &trans   &trans      &kp UNDER &kp PLUS  &kp LBRC  &kp RBRC &kp PIPE &kp TILDE
-                             &kp LGUI &trans   &kp SPACE   &kp RET   &trans    &kp RALT
-                        >;
-                };
+    behaviors {
+        hm: homerow_mods {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            tapping-term-ms = <200>;
+            quick-tap-ms = <0>;
+            flavor = "tap-preferred";
+            require-prior-idle-ms = <100>;
+            retro-tap;
+            hold-while-undecided;
+            bindings = <&kp>, <&kp>;
         };
+    };
+
+	keymap {
+        compatible = "zmk,keymap";
+
+        default_qwerty {
+            bindings = QWERTY_LAYOUT;
+        };
+
+        default_dvorak {
+            bindings = DVORAK_LAYOUT;
+        };
+
+        raise {
+            bindings = <
+                &none &kp ESC     &kp AT      &kp HASH    &kp DLLR    &kp PRCNT       &kp LS(SLASH)  &kp AMPS  &kp ASTRK  &kp SEMI  &kp BSPC  &none
+                &none &mt LCTRL A &mt LALT O  &mt LGUI E  &mt LSHFT U &kp I           &kp D   &mt RSHFT H &mt RGUI T  &mt RALT N  &mt RCTRL S &none
+                &none &kp SEMI    &kp Q       &kp J       &kp K       &kp X           &kp B   &kp M       &kp W       &kp V       &kp Z       &none
+                                              &kp TAB     &none       &kp BSPC        &kp RET &lt 0 ESC   &kp DEL
+            >;
+        };
+
+        raise_ext {
+            bindings = <
+                &none &kp ESC     &kp AT      &kp HASH    &kp DLLR    &kp PRCNT       &kp LS(SLASH)  &kp AMPS  &kp ASTRK  &kp SEMI  &kp BSPC  &none
+                &none &mt LCTRL A &mt LALT O  &mt LGUI E  &mt LSHFT U &kp I           &kp D   &mt RSHFT H &mt RGUI T  &mt RALT N  &mt RCTRL S &none
+                &none &kp SEMI    &kp Q       &kp J       &kp K       &kp X           &kp B   &kp M       &kp W       &kp V       &kp Z       &none
+                                              &kp TAB     &none       &kp BSPC        &kp RET &lt 0 ESC   &kp DEL
+            >;
+        };
+    };
 };
