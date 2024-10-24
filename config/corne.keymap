@@ -25,10 +25,10 @@ GAMING_LAYOUT_EXPANDED(KEYS)
     K21, K22, K23, K24, K25, K26, K27, K28, K29, K30  \
 ) \
 < \
-    &none &kp K01       &kp K02         &kp K03         &kp K04         &kp K05             &kp K06     &kp K07         &kp K08         &kp K09         &kp K10         &none \
-    &none &kp K11       &kp K12         &kp K13         &kp K14         &kp K15             &kp K16     &kp K17         &kp K18         &kp K19         &kp K20         &none \
-    &none &kp K21       &kp K22         &kp K23         &kp K24         &kp K25             &kp K26     &kp K27         &kp K28         &kp K29         &kp K30         &none \
-                                        &kp TAB         &kp SPACE       &mo RAISE           &kp BSPC    &kp RET         &kp DEL \
+    &none &kp K01   &kp K02     &kp K03     &kp K04     &kp K05             &kp K06     &kp K07     &kp K08     &kp K09     &kp K10     &none \
+    &none &kp K11   &kp K12     &kp K13     &kp K14     &kp K15             &kp K16     &kp K17     &kp K18     &kp K19     &kp K20     &none \
+    &none &kp K21   &kp K22     &kp K23     &kp K24     &kp K25             &kp K26     &kp K27     &kp K28     &kp K29     &kp K30     &none \
+                                &kp TAB     &kp SPACE   &mo RAISE           &kp BSPC    &kp RET     &kp DEL \
 >
 
 
@@ -44,7 +44,7 @@ BASE_LAYOUT_EXPANDED(KEYS)
     &none &kp K01       &kp K02         &kp K03         &kp K04         &kp K05             &kp K06     &kp K07         &kp K08         &kp K09         &kp K10         &none \
     &none &hm LSHFT K11 &hm LCTRL K12   &hm LALT K13    &hm LGUI K14    &kp K15             &kp K16     &hm RGUI K17    &hm RALT K18    &hm RCTRL K19   &hm RSHFT K20   &none \
     &none &kp K21       &kp K22         &kp K23         &kp K24         &kp K25             &kp K26     &kp K27         &kp K28         &kp K29         &kp K30         &none \
-                                        &kp TAB         &kp SPACE       &mo RAISE           &kp BSPC    &kp RET         &kp DEL \
+                                        &kp LSHFT       &kp SPACE       &mo RAISE           &kp BSPC    &key_repeat     &kp RET \
 >
 
 #define QWERTY_KEYS \
@@ -53,9 +53,9 @@ BASE_LAYOUT_EXPANDED(KEYS)
     Z,       X,       C,       V,       B,           N,       M,       COMMA,   DOT,     FSLH 
 
 #define DVORAK_KEYS \
-    SQT,     COMMA,   DOT,     P,       Y,           F,       G,       C,       R,       L, \
+    SEMI,    COMMA,   DOT,     P,       Y,           F,       G,       C,       R,       L, \
     A,       O,       E,       U,       I,           D,       H,       T,       N,       S, \
-    SEMI,    Q,       J,       K,       X,           B,       M,       W,       V,       Z 
+    SQT,     Q,       J,       K,       X,           B,       M,       W,       V,       Z 
 
 
 / {
@@ -98,7 +98,7 @@ BASE_LAYOUT_EXPANDED(KEYS)
                 &none &kp ESC       &kp AT      &kp LA(N3)  &kp DLLR    &kp PRCNT       &kp CARET       &kp AMPS        &kp ASTRK       &kp SEMI        &tog FUNC &none
                 &none &kp PLUS      &kp EQUAL   &kp FSLH    &kp MINUS   &kp SQT         &kp BSLH        &kp LS(LBKT)    &kp LS(RBKT)    &kp LS(BSLH)    &trans    &none
                 &none &kp TILDE     &kp LA(N2)  &kp QMARK   &kp UNDER   &kp DQT         &kp LBKT        &kp LPAR        &kp RPAR        &kp RBKT        &tog NAV  &none
-                                                &none       &none       &none           &kp BSPC        &tog RAISE_EXT  &kp DEL
+                                                &none       &none       &none           &kp RET         &tog RAISE_EXT  &kp DEL
             >;
         };
         
