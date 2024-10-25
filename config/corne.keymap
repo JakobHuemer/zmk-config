@@ -75,16 +75,6 @@ BASE_LAYOUT_EXPANDED(KEYS)
     };
 
 
-    combos {
-        compatible = "zmk,combos";
-        combo_esc {
-            timeout-ms = <100>;
-            // IMPORTANT I am stupid and have 6 col config for 5 col!!
-            key-positions = <13 14 21 22>;
-            bindings = <&tog DEFAULT>;
-        };
-    };
-
 	keymap {
         compatible = "zmk,keymap";
 
