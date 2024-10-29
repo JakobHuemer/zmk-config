@@ -49,5 +49,4 @@ node_modules/
 .idea
 .vscode
 config/corne-temp.keymap
-
-
+config/image.png
