@@ -74,6 +74,13 @@
             require-prior-idle-ms = <50>;
             retro-tap;
         };
+        tdsmeh_f: tap_dance_s_meh_fast {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&tdsmeh LGUI K>, <&kp S>;
+            mods = <(MOD_LSFT|MOD_RSFT|MOD_LCTL|MOD_RCTL|MOD_LALT|MOD_RALT|MOD_LGUI|MOD_RGUI)>;
+            keep-mods = <(MOD_LSFT|MOD_RSFT|MOD_LCTL|MOD_RCTL|MOD_LALT|MOD_RALT|MOD_LGUI|MOD_RGUI)>;
+        };
 
         tdhmeh_inner: tap_dance_h_meh_inner {
             compatible = "zmk,behavior-tap-dance";
@@ -82,6 +89,7 @@
             tapping-term-ms = <200>;
             bindings = <&kp H>, <&kp LG(LS(LALT))>;
         };
+
         tdhmeh: tap_dance_h_meh {
             compatible = "zmk,behavior-hold-tap";
             label = "tdhmeh";
@@ -95,21 +103,13 @@
             retro-tap;
         };
 
-
-        // tdhmeh_inner: tap_dance_h_com_meh_inner {
-        //     compatible = "zmk,behavior-tap-dance";
-        //     label = "tdhmeh_inner";
-        //     #binding-cells = <0>;
-        //     tapping-term-ms = <200>;
-        //     bindings = <&hm LGUI H>, <&kp LG(LS(LALT))>;
-        // };
-
-        // td_h_meh: tap_dance_h_cmd_meh {
-        //     compatible = "zmk,behavior-tap-dance";
-        //     #binding-cells = <0>;
-        //     tapping-term-ms = <200>;
-        //     bindings = <&hm H LGUI>, <&kp LGUI(LS(LALT))>;
-        // };
+        tdhmeh_f: tap_dance_h_meh_fast {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&tdhmeh LGUI K>, <&kp H>;
+            mods = <(MOD_LSFT|MOD_RSFT|MOD_LCTL|MOD_RCTL|MOD_LALT|MOD_RALT|MOD_LGUI|MOD_RGUI)>;
+            keep-mods = <(MOD_LSFT|MOD_RSFT|MOD_LCTL|MOD_RCTL|MOD_LALT|MOD_RALT|MOD_LGUI|MOD_RGUI)>;
+        };
 
     };
 
@@ -120,8 +120,10 @@
         default {
             // ' " - _ , < . >
             bindings = <
+                /*                                                                                  ' _            */
                 XXX   &kp B     &kp L           &kp D           &kp W           &kp Y               &sqt_under  &kp F           &kp O           &kp U           &kp J       XXX  
-                XXX   &kp N     &hm LCTRL R     &hm LALT T      &tdsmeh LGUI K  &kp G               &kp Z       &tdhmeh RGUI K  &hm RALT A      &hm RCTRL E     &kp I       XXX  
+                XXX   &kp N     &hm LCTRL R     &hm LALT T      &tdsmeh_f       &kp G               &kp Z       &tdhmeh_f       &hm RALT A      &hm RCTRL E     &kp I       XXX  
+                /*                                                                                                              . :             - "             , ;    */
                 XXX   &kp Q     &kp X           &kp M           &kp C           &kp V               &kp K       &kp P           &kp DOT         &minus_dqt      &kp COMMA   XXX  
                                                 &kp LSHFT       &kp SPACE       &mo RAISE           &kp BSPC    &key_repeat     &tog NAV
             >;
