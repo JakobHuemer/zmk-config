@@ -13,6 +13,7 @@
 #define RAISE_EXT   2
 #define NAV         3
 #define FUNC        4
+#define KEYBOARD    5
 
 #define XXX &none
 #define ___ &trans
@@ -122,7 +123,7 @@
                 XXX   &kp B     &kp L           &kp D           &kp W           &kp Y               &sqt_under  &kp F           &kp O           &kp U           &kp J       XXX  
                 XXX   &kp N     &hm LCTRL R     &hm LALT T      &tdsmeh LGUI K  &kp G               &kp Z       &tdhmeh RGUI K  &hm RALT A      &hm RCTRL E     &kp I       XXX  
                 XXX   &kp Q     &kp X           &kp M           &kp C           &kp V               &kp K       &kp P           &kp DOT         &minus_dqt      &kp COMMA   XXX  
-                                                &kp LSHFT       &lt RAISE SPACE &kp LA(U)           &kp BSPC    &key_repeat     &tog NAV
+                                                &kp LSHFT       &kp SPACE       &mo RAISE           &kp BSPC    &key_repeat     &tog NAV
             >;
         };
 
@@ -141,10 +142,10 @@
         // toggled
         raise_ext {
             bindings = <
-                XXX     ___         ___         ___         ___         ___                 &kp PLUS    &kp KP_N7       &kp KP_N8   &kp KP_N9   &kp STAR  XXX  
-                XXX     ___         ___         ___         ___         ___                 &kp MINUS   &kp KP_N4       &kp KP_N5   &kp KP_N6   &kp FSLH  XXX  
-                XXX     ___         ___         ___         ___         ___                 &kp EQUAL   &kp KP_N1       &kp KP_N2   &kp KP_N3   ___       XXX  
-                                                ___         ___         &to DEFAULT         ___         &tog RAISE_EXT  &kp KP_N0
+                XXX     ___         ___         ___         ___         ___                 &kp PLUS        &kp KP_N7       &kp KP_N8   &kp KP_N9   &kp STAR  XXX  
+                XXX     ___         ___         ___         ___         ___                 &kp MINUS       &kp KP_N4       &kp KP_N5   &kp KP_N6   &kp FSLH  XXX  
+                XXX     ___         ___         ___         ___         ___                 &kp EQUAL       &kp KP_N1       &kp KP_N2   &kp KP_N3   ___       XXX  
+                                                ___         ___         &to DEFAULT         &tog KEYBOARD   &tog RAISE_EXT  &kp KP_N0
             >;
         };
 
@@ -165,6 +166,15 @@
                 XXX     &kp F5  &kp F6  &kp F7  &kp F8   XXX                XXX     &kp F17 &kp F18 &kp F19 &kp F20 XXX  
                 XXX     &kp F9  &kp F10 &kp F11 &kp F12  XXX                XXX     &kp F21 &kp F22 &kp F23 &kp F24 XXX  
                                         XXX     XXX      &to DEFAULT        XXX     XXX     XXX  
+            >;
+        };
+
+        keyboard {
+            bindings = <
+                XXX     XXX     XXX     XXX     XXX     XXX                     XXX     XXX             &bt BT_PRV      &bt BT_NXT      XXX             XXX  
+                XXX     XXX     XXX     XXX     XXX     &bt BT_CLR              XXX     &bt BT_SEL 0    &bt BT_SEL 1    &bt BT_SEL 2    &bt BT_SEL 3    XXX  
+                XXX     XXX     XXX     XXX     XXX     &bt BT_CLR_ALL          XXX     &bt BT_DISC 0   &bt BT_DISC 1   &bt BT_DISC 2   &bt BT_DISC 3   XXX  
+                                        XXX     XXX     &to DEFAULT             XXX     XXX             XXX
             >;
         };
 
