@@ -3,10 +3,10 @@
 *
 * SPDX-License-Identifier: MIT
 */
-
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/bt.h>
+
 
 #define DEFAULT     0
 #define BSPCO       1
@@ -19,6 +19,9 @@
 #define XXX &none
 #define ___ &trans
 
+#include "includes/macros.dtsi"
+
+
 /{ 
     chosen {
         zmk,matrix_transform = &five_column_transform;
@@ -28,17 +31,8 @@
 / {
 
     behaviors {
-        hm: homerow_mods {
-            compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <2>;
-            tapping-term-ms = <200>;
-            quick-tap-ms = <0>;
-            flavor = "tap-preferred";
-            require-prior-idle-ms = <50>;
-            retro-tap;
-            // hold-while-undecided;
-            bindings = <&kp>, <&kp>;
-        };
+
+        ZMK_HOMEROW_BINDINGS(hm, &kp, &kp)
 
         hs: hold_tap_sticky {
             compatible = "zmk,behavior-hold-tap";
@@ -49,201 +43,31 @@
             bindings = <&kp>, <&sk>;
         };
 
-
-        hm_ae_la: homerow_mod_umlaut_a_left_alt {
-            compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <2>;
-            tapping-term-ms = <300>;
-            quick-tap-ms = <0>;
-            flavor = "tap-preferred";
-            require-prior-idle-ms = <50>;
-            retro-tap;
-            // hold-while-undecided;
-            bindings = <&kp>, <&td_ae>;
-        };
-    
-
-        //#region main layer util
-
-        sqt_under: forward_slash_under {
-            compatible = "zmk,behavior-mod-morph";
-            #binding-cells = <0>;
-            bindings = <&kp SQT>, <&kp UNDER>;
-            mods = <(MOD_LSFT|MOD_RSFT)>;
-        };
-
-        minus_dqt: minus_double_quote {
-            compatible = "zmk,behavior-mod-morph";
-            #binding-cells = <0>;
-            bindings = <&kp MINUS>, <&kp DQT>;
-            mods = <(MOD_LSFT|MOD_RSFT)>;
-        };
-
-        do_co: dot_colon {
-
-            compatible = "zmk,behavior-mod-morph";
-            #binding-cells = <0>;
-            bindings = <&kp DOT>, <&kp COLON>;
-            mods = <(MOD_LSFT|MOD_RSFT)>;
-            // bindings = <&kp DOT>, <&kp COLON>;
-            // mods = <(MOD_LSFT|MOD_RSFT)>;
-        };
-
-        co_se: command_semicolon {
-            compatible = "zmk,behavior-mod-morph";
-            #binding-cells = <0>;
-            bindings = <&kp COMMA>, <&kp SEMI>;
-            mods = <(MOD_LSFT|MOD_RSFT)>;
-        };
-        //#endregion
-
-
-        gresc: grave_escape {
-            compatible = "zmk,behavior-mod-morph";
-            #binding-cells = <0>;
-            bindings = <&kp ESC>, <&kp GRAVE>;
-            mods = <(MOD_LSFT|MOD_RSFT)>;
-        };
+        ZMK_HOMEROW_BINDINGS(hm_ae_la, &kp, &td_ae)
+        
+        ZMK_MOD_MORPH_S(sqt_under, &kp SQT, &kp UNDER)
+        ZMK_MOD_MORPH_S(minus_dqt, &kp MINUS, &kp DQT)
+        ZMK_MOD_MORPH_S(do_co, &kp DOT, &kp COLON)
+        ZMK_MOD_MORPH_S(co_se, &kp COMMA, &kp SEMI)
+        ZMK_MOD_MORPH_S(gresc_, &kp ESC, &kp GRAVE)
         
 
-        tdsmeh_inner: tap_dance_s_meh_inner {
-            compatible = "zmk,behavior-tap-dance";
-            #binding-cells = <0>;
-            tapping-term-ms = <200>;
-            bindings = <&kp S>, <&kp LG(LS(LALT))>;
-        };
-        tdsmeh: tap_dance_s_meh {
-            compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <2>;
-            flavor = "tap-preferred";
-            tapping-term-ms = <225>;
-            quick-tap-ms = <200>;
-            bindings = <&kp>, <&tdsmeh_inner>;
-            // homerow mod settings
-            require-prior-idle-ms = <50>;
-            retro-tap;
-        };
-        tdsmeh_f: tap_dance_s_meh_fast {
-            compatible = "zmk,behavior-mod-morph";
-            #binding-cells = <0>;
-            bindings = <&tdsmeh LGUI K>, <&kp S>;
-            mods = <(MOD_LSFT|MOD_RSFT|MOD_LCTL|MOD_RCTL|MOD_LALT|MOD_RALT|MOD_LGUI|MOD_RGUI)>;
-            keep-mods = <(MOD_LSFT|MOD_RSFT|MOD_LCTL|MOD_RCTL|MOD_LALT|MOD_RALT|MOD_LGUI|MOD_RGUI)>;
-        };
+        ZMK_MOD_MORPH_S(lbr, &kp LS(LBKT), &kp LS(COMMA))
+        ZMK_MOD_MORPH_S(rbr, &kp LS(RBKT), &kp LS(DOT))
 
-        tdhmeh_inner: tap_dance_h_meh_inner {
-            compatible = "zmk,behavior-tap-dance";
-            #binding-cells = <0>;
-            tapping-term-ms = <200>;
-            bindings = <&kp H>, <&kp LG(LS(LALT))>;
-        };
-
-        tdhmeh: tap_dance_h_meh {
-            compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <2>;
-            flavor = "tap-preferred";
-            tapping-term-ms = <225>;
-            quick-tap-ms = <200>;
-            bindings = <&kp>, <&tdhmeh_inner>;
-            // homerow mod settings
-            require-prior-idle-ms = <50>;
-            retro-tap;
-        };
-
-        tdhmeh_f: tap_dance_h_meh_fast {
-            compatible = "zmk,behavior-mod-morph";
-            #binding-cells = <0>;
-            bindings = <&tdhmeh LGUI K>, <&kp H>;
-            mods = <(MOD_LSFT|MOD_RSFT|MOD_LCTL|MOD_RCTL|MOD_LALT|MOD_RALT|MOD_LGUI|MOD_RGUI)>;
-            keep-mods = <(MOD_LSFT|MOD_RSFT|MOD_LCTL|MOD_RCTL|MOD_LALT|MOD_RALT|MOD_LGUI|MOD_RGUI)>;
-        };
-
-
-        lbr: left_brakets {
-            compatible = "zmk,behavior-mod-morph";
-            #binding-cells = <0>;
-            bindings = <&kp LS(LBKT)>, <&kp LS(COMMA)>;
-            mods = <(MOD_LSFT|MOD_RSFT)>;
-        };
-
-        rbr: richt_brakets {
-            compatible = "zmk,behavior-mod-morph";
-            #binding-cells = <0>;
-            bindings = <&kp LS(RBKT)>, <&kp LS(DOT)>;
-            mods = <(MOD_LSFT|MOD_RSFT)>;
-        };
-
-
-
-
-        // #region tap-dance umlauts
         
-
-        td_oe: tap_dance_umlaut_o {
-            compatible = "zmk,behavior-tap-dance";
-            #binding-cells = <0>;
-            tapping-term-ms = <300>;
-            bindings = <&kp O>, <&m_oe>;
-        };
-
-        td_ue: tap_dance_umlaut_u {
-            compatible = "zmk,behavior-tap-dance";
-            #binding-cells = <0>;
-            tapping-term-ms = <300>;
-            bindings = <&kp U>, <&m_ue>;
-        };
-
-        td_ae: tap_dance_umlaut_a {
-            compatible = "zmk,behavior-tap-dance";
-            #binding-cells = <0>;
-            tapping-term-ms = <300>;
-            bindings = <&kp A>, <&m_ae>;
-        };
-
-        // #endregion
-
+        ZMK_TAP_DANCE_UMLAUT(td_ue, U, mu_ue)
+        ZMK_TAP_DANCE_UMLAUT(td_ae, A, mu_ae)
+        ZMK_TAP_DANCE_UMLAUT(td_oe, O, mu_oe)
 
     };
 
 
     macros {
-        m_oe: macro_umlaut_o {
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings
-                = <&macro_tap &kp LA(U)>
-                , <&macro_tap &kp O>
-                ;
-        };
-        
-        m_ue: macro_umlaut_u {
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings
-                = <&macro_tap &kp LA(U)>
-                , <&macro_tap &kp U>
-                ;
-        };
-        
-        m_ae: macro_umlaut_a {
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings
-                = <&macro_tap &kp LA(U)>
-                , <&macro_tap &kp A>
-                ;
-        };
 
-        // m_um: macro_umlaut {
-        //     compatible = "zmk,behavior-macro-one-param";
-        //     #binding-cells = <1>;
-        //     bindings
-        //         = <&macro_tap &kp LA(U)>
-        //         , <&macro_param_1to1>
-        //         , <&kp MACRO_PLACEHOLDER>
-        //         ;
-        // };
-
+        ZMK_UMLAUT(mu_ae, A)
+        ZMK_UMLAUT(mu_ue, U)
+        ZMK_UMLAUT(mu_oe, O)
 
         // backspace macros
         
@@ -273,7 +97,7 @@
             bindings = <
                 /*                                                                                  ' _                */
                 &kp B       &kp L           &kp D           &kp W       &kp Y               &sqt_under      &kp F           &td_oe              &td_ue          &kp J
-                &kp N       &hm LCTRL R     &hm LALT T      &tdsmeh_f   &kp G               &kp Z           &tdhmeh_f       &hm_ae_la LALT A    &hm RCTRL E     &kp I
+                &kp N       &hm LCTRL R     &hm LALT T      &hm LGUI S  &kp G               &kp Z           &hm LGUI H      &hm_ae_la LALT A    &hm RCTRL E     &kp I
                 /*                                                                                                          . :                 - "             , ;      */
                 &kp Q       &kp X           &kp M           &kp C       &kp V               &kp K           &kp P           &do_co              &minus_dqt      &co_se
                                             &hs LSHFT LSHFT &kp SPACE   &mo RAISE           &kp BSPC        &key_repeat     &tog NAV
@@ -303,7 +127,7 @@
         raise {
             bindings = <
                 /* Grave Escape  @      #           $           %                   ^           &               *           ;               TO FUNC      */
-                &gresc      &kp AT      &kp LA(N3)  &kp DLLR    &kp PRCNT           &kp CARET   &kp AMPS        &kp STAR    &kp SEMI        &tog FUNC
+                &gresc_     &kp AT      &kp LA(N3)  &kp DLLR    &kp PRCNT           &kp CARET   &kp AMPS        &kp STAR    &kp SEMI        &tog FUNC
                 /* +        =           /           ¨ for öäü   :                   \           { <             } >         |               DEL         */
                 &kp PLUS    &kp EQUAL   &kp FSLH    &kp LA(U)   &kp COLON           &kp BSLH    &lbr            &rbr        &kp LS(BSLH)    &kp DEL
                 /*  ~       €           ?           !           ß                   [           (               )           ]               TO NAV      */
