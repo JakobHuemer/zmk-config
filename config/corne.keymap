@@ -39,35 +39,43 @@
             #binding-cells = <2>;
             tapping-term-ms = <150>;
             quick-tap-ms = <0>;
-            flavor = "hold-preferred";
+            flavor = "balanced";
             bindings = <&kp>, <&sk>;
         };
 
-        ZMK_HOMEROW_BINDINGS(hm_ae_la, &kp, &td_ae)
+        ZMK_HOMEROW_BINDINGS(hm_ae_la, &kp, &u_ae)
+
+        ZMK_HOMEROW_BINDINGS(krl, &mo, &key_repeat)
         
         ZMK_MOD_MORPH_S(sqt_under, &kp SQT, &kp UNDER)
         ZMK_MOD_MORPH_S(minus_dqt, &kp MINUS, &kp DQT)
         ZMK_MOD_MORPH_S(do_co, &kp DOT, &kp COLON)
         ZMK_MOD_MORPH_S(co_se, &kp COMMA, &kp SEMI)
         ZMK_MOD_MORPH_S(gresc_, &kp ESC, &kp GRAVE)
-        
 
         ZMK_MOD_MORPH_S(lbr, &kp LS(LBKT), &kp LS(COMMA))
         ZMK_MOD_MORPH_S(rbr, &kp LS(RBKT), &kp LS(DOT))
-
         
-        ZMK_TAP_DANCE_UMLAUT(td_ue, U, mu_ue)
-        ZMK_TAP_DANCE_UMLAUT(td_ae, A, mu_ae)
-        ZMK_TAP_DANCE_UMLAUT(td_oe, O, mu_oe)
+        ZMK_TAP_DANCE_UMLAUT(u_ae, A, mu_ae)
+        ZMK_TAP_DANCE_UMLAUT(u_ue, U, mu_ue)
+        ZMK_TAP_DANCE_UMLAUT(u_oe, O, mu_oe)
+
+        // uml_oe: mod_morph_umlaut_oe {
+        //     compatible = "zmk,behavior-mod-morph";
+        //     #binding-cells = <0>;
+        //     bindings = <&mu_oe>, <&mu_oe>;
+        //     mods = <(MOD_LSFT|MOD_RSFT)>;
+        // };
+
 
     };
 
 
     macros {
 
-        ZMK_UMLAUT(mu_ae, A)
-        ZMK_UMLAUT(mu_ue, U)
-        ZMK_UMLAUT(mu_oe, O)
+        ZMK_MACRO_UMLAUT(mu_ae, A)
+        ZMK_MACRO_UMLAUT(mu_ue, U)
+        ZMK_MACRO_UMLAUT(mu_oe, O)
 
         // backspace macros
         
@@ -87,20 +95,13 @@
         compatible = "zmk,keymap";
 
         default {
-            // symbols: ' _    . :    - "    , ;
-            // in case of shift + o
-            // shift down + o tap + shift up
-            //                      | O is fired
-            // in case of shift + ö
-            // shift down + 2x o tap + shift zup
-            //                         | Ö is fired
             bindings = <
-                /*                                                                                  ' _                */
-                &kp B       &kp L           &kp D           &kp W       &kp Y               &sqt_under      &kp F           &td_oe              &td_ue          &kp J
-                &kp N       &hm LCTRL R     &hm LALT T      &hm LGUI S  &kp G               &kp Z           &hm LGUI H      &hm_ae_la LALT A    &hm RCTRL E     &kp I
-                /*                                                                                                          . :                 - "             , ;      */
-                &kp Q       &kp X           &kp M           &kp C       &kp V               &kp K           &kp P           &do_co              &minus_dqt      &co_se
-                                            &hs LSHFT LSHFT &kp SPACE   &mo RAISE           &kp BSPC        &key_repeat     &tog NAV
+                /*                                                                          ' _                */
+                &kp B       &kp L           &kp D           &kp W       &kp Y               &sqt_under      &kp F               &u_oe               &u_ue           &kp J
+                &kp N       &hm LCTRL R     &hm LALT T      &hm LGUI S  &kp G               &kp Z           &hm LGUI H          &hm_ae_la LALT A    &hm RCTRL E     &kp I
+                /*                                                                                                              . :                 - "             , ;      */
+                &kp Q       &kp X           &kp M           &kp C       &kp V               &kp K           &kp P               &do_co              &minus_dqt      &co_se
+                                            &hs LSHFT LSHFT &kp SPACE   &mo RAISE           &kp BSPC        &krl RAISE_EXT XXX  &tog NAV
             >;
         };
 
@@ -142,7 +143,7 @@
                 ___         ___         ___         ___         ___                 &kp PLUS        &kp KP_N7       &kp KP_N8   &kp KP_N9   &kp STAR
                 ___         ___         ___         ___         ___                 &kp MINUS       &kp KP_N4       &kp KP_N5   &kp KP_N6   &kp FSLH
                 ___         ___         ___         ___         ___                 &kp EQUAL       &kp KP_N1       &kp KP_N2   &kp KP_N3   ___
-                                                ___         ___         &to DEFAULT         &tog KEYBOARD   &tog RAISE_EXT  &kp KP_N0
+                                        ___         ___         &to DEFAULT         &tog KEYBOARD   &tog RAISE_EXT  &kp KP_N0
             >;
         };
 
