@@ -9,15 +9,20 @@
 
 
 #define DEFAULT     0
-#define BSPCO       1
-#define RAISE       2
-#define RAISE_EXT   3
-#define NAV         4
-#define FUNC        5
-#define KEYBOARD    6
+#define RAISE       1
+#define NUM         2
+#define NAV         3
+#define FUNC        4
+#define KEYBOARD    5
 
 #define XXX &none
 #define ___ &trans
+
+
+// other keys rebound on my mac
+#define GLOBE CAPS;
+#define GLB CAPS;
+
 
 #include "includes/macros.dtsi"
 
@@ -33,51 +38,36 @@
     behaviors {
 
         ZMK_HOMEROW_BINDINGS(hm, &kp, &kp)
+        ZMK_HOMEROW_BINDINGS(hl, &mo, &kp)
 
-        hs: hold_tap_sticky {
-            compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <2>;
-            tapping-term-ms = <150>;
-            quick-tap-ms = <0>;
-            flavor = "balanced";
-            bindings = <&kp>, <&sk>;
-        };
-
-        ZMK_HOMEROW_BINDINGS(hm_ae_la, &kp, &u_ae)
-
-        ZMK_HOMEROW_BINDINGS(krl, &mo, &key_repeat)
+        // ZMK_HOMEROW_BINDINGS(hm_ae_la,  &kp,    &u_ae)
+        ZMK_HOMEROW_BINDINGS(krl,       &mo,    &key_repeat)
         
-        ZMK_MOD_MORPH_S(sqt_under, &kp SQT, &kp UNDER)
-        ZMK_MOD_MORPH_S(minus_dqt, &kp MINUS, &kp DQT)
-        ZMK_MOD_MORPH_S(do_co, &kp DOT, &kp COLON)
-        ZMK_MOD_MORPH_S(co_se, &kp COMMA, &kp SEMI)
-        ZMK_MOD_MORPH_S(gresc_, &kp ESC, &kp GRAVE)
+        ZMK_MOD_MORPH_S(sqt_under,  &kp SQT,    &kp UNDER)
+        ZMK_MOD_MORPH_S(minus_dqt,  &kp MINUS,  &kp DQT)
+        ZMK_MOD_MORPH_S(do_co,      &kp DOT,    &kp COLON)
+        ZMK_MOD_MORPH_S(co_se,      &kp COMMA,  &kp SEMI)
+        ZMK_MOD_MORPH_S(gresc_,     &kp ESC,    &kp GRAVE)
 
         ZMK_MOD_MORPH_S(lbr, &kp LS(LBKT), &kp LS(COMMA))
         ZMK_MOD_MORPH_S(rbr, &kp LS(RBKT), &kp LS(DOT))
         
-        ZMK_TAP_DANCE_UMLAUT(u_ae, A, mu_ae)
-        ZMK_TAP_DANCE_UMLAUT(u_ue, U, mu_ue)
-        ZMK_TAP_DANCE_UMLAUT(u_oe, O, mu_oe)
 
-        // uml_oe: mod_morph_umlaut_oe {
-        //     compatible = "zmk,behavior-mod-morph";
-        //     #binding-cells = <0>;
-        //     bindings = <&mu_oe>, <&mu_oe>;
-        //     mods = <(MOD_LSFT|MOD_RSFT)>;
-        // };
+    };
 
-
+    combos {
+        compatible = "zmk,combos";
+        combo_caps_aka_globe {
+            timeout-ms = <50>;
+            key-positions = <10 19>;
+            bindings = <&kp CAPS>;
+        };
     };
 
 
     macros {
 
-        ZMK_MACRO_UMLAUT(mu_ae, A)
-        ZMK_MACRO_UMLAUT(mu_ue, U)
-        ZMK_MACRO_UMLAUT(mu_oe, O)
 
-        // backspace macros
         
         dl: delete_line {
             compatible = "zmk,behavior-macro";
@@ -87,6 +77,7 @@
                 , <&macro_tap &kp LG(BSPC)>
                 ;
         };
+
         
     };
 
@@ -97,63 +88,43 @@
         default {
             bindings = <
                 /*                                                                          ' _                */
-                &kp B       &kp L           &kp D           &kp W       &kp Y               &sqt_under      &kp F               &u_oe               &u_ue           &kp J
-                &kp N       &hm LCTRL R     &hm LALT T      &hm LGUI S  &kp G               &kp Z           &hm LGUI H          &hm_ae_la LALT A    &hm RCTRL E     &kp I
-                /*                                                                                                              . :                 - "             , ;      */
-                &kp Q       &kp X           &kp M           &kp C       &kp V               &kp K           &kp P               &do_co              &minus_dqt      &co_se
-                                            &hs LSHFT LSHFT &kp SPACE   &mo RAISE           &kp BSPC        &krl RAISE_EXT XXX  &tog NAV
-            >;
-        };
-
-        backspace_options {
-            bindings = <
-                /*
-                - tap -> Backspace
-                - hold -> new layer with multiple backspace options
-                    - delete to end
-                    - delete to start
-                    - delete word forward/backwards
-                    - delete fast (idk etc.)
-
-
-                */
-                XXX     XXX     XXX     XXX     XXX             XXX             XXX             &kp BSPC    XXX             XXX
-                /*                                              b start         b word          d           d word          d end       */
-                XXX     XXX     XXX     XXX     XXX             &kp LG(BSPC)    &kp LA(BSPC)    &kp DEL     &kp LA(DEL)     &kp LC(K)
-                XXX     XXX     XXX     XXX     XXX             XXX             XXX             XXX         XXX             XXX
-                                XXX     XXX     XXX             XXX             XXX             XXX
+                &kp B       &kp L           &kp D           &kp W           &kp Z               &sqt_under      &kp F               &kp O               &kp U           &kp J
+                &kp N       &hm LCTRL R     &hm LALT T      &hm LGUI S      &kp G               &kp Y           &hm LGUI H          &hm LALT A          &hm RCTRL E     &kp I
+                /*                                                                                                                  . :                 - "             , ;      */
+                &kp Q       &kp X           &kp M           &kp C           &kp V               &kp K           &kp P               &do_co              &minus_dqt      &co_se
+                                            &kp LSHFT       &hl NAV SPACE   &mo RAISE           &kp BSPC        &key_repeat         &tog NUM
             >;
         };
 
         raise {
             bindings = <
-                /* Grave Escape  @      #           $           %                   ^           &               *           ;               TO FUNC      */
-                &gresc_     &kp AT      &kp LA(N3)  &kp DLLR    &kp PRCNT           &kp CARET   &kp AMPS        &kp STAR    &kp SEMI        &tog FUNC
-                /* +        =           /           ¨ for öäü   :                   \           { <             } >         |               DEL         */
-                &kp PLUS    &kp EQUAL   &kp FSLH    &kp LA(U)   &kp COLON           &kp BSLH    &lbr            &rbr        &kp LS(BSLH)    &kp DEL
-                /*  ~       €           ?           !           ß                   [           (               )           ]               TO NAV      */
-                &kp TILDE   &kp LA(N2)  &kp QMARK   &kp EXCL    &kp LA(S)           &kp LBKT    &kp LPAR        &kp RPAR    &kp RBKT        &tog NAV
-                                        XXX         XXX         XXX                 &kp RET     &tog RAISE_EXT  &kp RSHFT
+                /* Grave Escape  @      #           $           %                       ^           &               *           ;               TO FUNC      */
+                &gresc_     &kp AT      &kp LA(N3)  &kp DLLR    &kp PRCNT               &kp CARET   &kp AMPS        &kp STAR    &kp SEMI        &tog FUNC
+                /* +        =           /           ¨ for öäü   :                       \           { <             } >         |               DEL         */
+                &kp TAB     &kp EQUAL   &kp FSLH    &kp LA(U)   &kp COLON               &kp BSLH    &lbr            &rbr        &kp LS(BSLH)    &kp DEL
+                /*  ~       €           ?           !           ß                       [           (               )           ]               TO NAV      */
+                &kp TILDE   &kp LA(N2)  &kp QMARK   &kp EXCL    &kp LA(S)               &kp LBKT    &kp LPAR        &kp RPAR    &kp RBKT        &tog NAV
+                                        XXX         XXX         XXX                     &kp RET     &kp RSHFT       &tog NUM        
             >;
         };
         
         // toggled
-        raise_ext {
+        num {
             bindings = <
-                ___         ___         ___         ___         ___                 &kp PLUS        &kp KP_N7       &kp KP_N8   &kp KP_N9   &kp STAR
-                ___         ___         ___         ___         ___                 &kp MINUS       &kp KP_N4       &kp KP_N5   &kp KP_N6   &kp FSLH
-                ___         ___         ___         ___         ___                 &kp EQUAL       &kp KP_N1       &kp KP_N2   &kp KP_N3   ___
-                                        ___         ___         &to DEFAULT         &tog KEYBOARD   &tog RAISE_EXT  &kp KP_N0
+                ___         ___         &kp COMMA   &kp DOT     ___                 &kp PLUS        &kp KP_N7       &kp KP_N8   &kp KP_N9   &kp STAR
+                &kp PLUS    &kp MINUS   &kp STAR    &kp FSLH    ___                 &kp MINUS       &kp KP_N4       &kp KP_N5   &kp KP_N6   &kp FSLH
+                ___         ___         ___         &kp EQUAL   ___                 &kp EQUAL       &kp KP_N1       &kp KP_N2   &kp KP_N3   ___
+                                        ___         ___         &to DEFAULT         &kp BSPC        &tog NUM        &kp KP_N0
             >;
         };
 
         // toggled
         nav {
             bindings = <
-                ___         ___         ___         ___         ___                 ___         ___         ___         ___         ___
-                ___         ___         ___         ___         ___                 ___         ___         ___         ___         ___
-                ___         ___         ___         ___         ___                 ___         ___         ___         ___         ___
-                                        ___         ___         &to DEFAULT         ___         ___         ___
+                &kp F1      &kp F2      &kp F3      &kp F4      &kp F5              &kp F6      &kp F7              &kp F8          &kp F9          &kp F10
+                &kp F11     &kp LCTRL   &kp LALT    &kp LGUI    &kp F12             ___         &kp LEFT            &kp DOWN        &kp UP          &kp RIGHT
+                ___         ___         ___         &kp CAPS    ___                 ___         &kp HOME            &kp PG_DN       &kp PG_UP       &kp END
+                                        ___         ___         &to DEFAULT         ___         &kp LG(LS(RETURN))  &tog NAV
             >;
         };
 
