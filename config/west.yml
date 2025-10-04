@@ -6,7 +6,8 @@ manifest:
     # See https://docs.zephyrproject.org/3.2.0/develop/west/manifest.html#projects
     - name: jakobhuemer
       url-base: https://github.com/JakobHuemer
-  projects:äö
+  projects:
+    - name: zmk
       remote: zmkfirmware
       revision: main
       import: app/west.yml
