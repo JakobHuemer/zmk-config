@@ -50,3 +50,4 @@ node_modules/
 .vscode
 config/corne-temp.keymap
 config/image.png
+.zmk/
