@@ -66,9 +66,6 @@
 
 
     macros {
-
-
-        
         dl: delete_line {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
@@ -77,8 +74,6 @@
                 , <&macro_tap &kp LG(BSPC)>
                 ;
         };
-
-        
     };
 
 
@@ -92,7 +87,7 @@
                 &kp N       &hm LCTRL R     &hm LALT T      &hm LGUI S      &kp G               &kp Y           &hm LGUI H          &hm LALT A          &hm RCTRL E     &kp I
                 /*                                                                                                                  . :                 - "             , ;      */
                 &kp Q       &kp X           &kp M           &kp C           &kp V               &kp K           &kp P               &do_co              &minus_dqt      &co_se
-                                            &kp LSHFT       &hl NAV SPACE   &mo RAISE           &kp BSPC        &key_repeat         &tog NUM
+                                            &kp LSHFT       &kp SPACE       &mo RAISE           &kp BSPC        &key_repeat         &tog NUM
             >;
         };
 
